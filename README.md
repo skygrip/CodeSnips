@@ -4,4 +4,4 @@
 # Languages
 * [Python](Python.md)
 * [Excel](Excel.md)
-* [Powershell](Powershell.md)
+* [PowerShell](PowerShell.md)
