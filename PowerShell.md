@@ -15,7 +15,8 @@ File selection function
 
 Load a CSV file
 
-    function LoadFile($filename){
+    $filename = Get-FileName
+    function Load-CSVFile($filename){
       Write-Output "Loading File: $filename"
       $fileContent = Import-Csv -Path $filename
       write-output "Loading File Complete, $($fileContent.Count) entries loaded"
@@ -24,9 +25,16 @@ Load a CSV file
 
 Iterate over the CSV filename
 
-    $list = LoadFile(Get-FileName())
+    $list = Load-CSVFile(Get-FileName())
 
     foreach ($item in $list)
     {
     //Do Something
     }
+
+
+Do Mass DNS Lookups
+
+    # CSV File must have a column called Query with a list of queries
+    $List = Load-CSVFile(Get-FileName())
+    $List.Query | resolve-dnsname | where {$_.Section -eq "Answer"} | Select Name, IPAddress | Sort Name
