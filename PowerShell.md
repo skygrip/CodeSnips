@@ -8,7 +8,7 @@ File selection function
 
         $OpenFileDialog = New-Object System.Windows.Forms.OpenFileDialog
         $OpenFileDialog.initialDirectory = $initialDirectory
-        $OpenFileDialog.filter = "CSV (*.csv)| *.csv"
+        # $OpenFileDialog.filter = "CSV (*.csv)| *.csv"
         $OpenFileDialog.ShowDialog() | Out-Null
         $OpenFileDialog.filename
     }
@@ -16,22 +16,38 @@ File selection function
 Load a CSV file
 
     $filename = Get-FileName
+
     function Load-CSVFile($filename){
-      Write-Output "Loading File: $filename"
+      Write-Host "Loading File: $filename"
       $fileContent = Import-Csv -Path $filename
-      write-output "Loading File Complete, $($fileContent.Count) entries loaded"
+      Write-Host "Loading File Complete, $($fileContent.Count) entries loaded"
       return $fileContent
     }
 
 Iterate over the CSV filename
 
-    $list = Load-CSVFile(Get-FileName())
+    # Load the file
+    $filename = Get-FileName()
+    $list = Load-CSVFile()
 
-    foreach ($item in $list)
-    {
-    //Do Something
+    # Add a Results column
+    $list = $list | Select *,"Result"
+
+    foreach ($item in $list) {
+        # reminder, $item is a reference so changes to it 
+        # are reflectedin $list, just dont change the structure
+
+        try {
+            $item.Result = Some Command
+        }
+        catch{
+            Write-Warning -Message "error"
+            $item.Result = "error"
+        }
     }
 
+    # Save the results
+    $list | Export-Csv -Path $filename -NoTypeInformation
 
 Do Mass DNS Lookups
 
