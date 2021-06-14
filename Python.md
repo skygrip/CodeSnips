@@ -16,6 +16,7 @@ Read a CSV file into a panda dataframe
     urls = pandas.read_csv(filename)
 
 Loop over a Panda rows with iterrows. Note iterrows is slow
+
     df = pd.DataFrame([[4, 9]] * 3, columns=['A', 'B'])
 
     for i, x in df.iterrows():
