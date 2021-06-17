@@ -2,6 +2,7 @@
 
 Select a filename with a GUI element
 
+    import sys
     from tkinter.filedialog import askopenfilename
     filename = askopenfilename(initialdir = sys.path[0])
 
