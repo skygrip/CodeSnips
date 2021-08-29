@@ -54,3 +54,15 @@ Do Mass DNS Lookups
     # CSV File must have a column called Query with a list of queries
     $List = Load-CSVFile(Get-FileName())
     $List.Query | resolve-dnsname | where {$_.Section -eq "Answer"} | Select Name, IPAddress | Sort Name
+
+List files and folders to a csv with atrribute data
+
+    Get-ChildItem -Force -Recurse | Select-Object  Fullname, LastAccessTime, LastWriteTime, CreationTime, Mode, Length, @{N="Owner";E={ (Get-Acl).Owner }}, @{N="ACL";E={ (Get-Acl).Access | ConvertTo-Csv }} | Export-Csv ("C:\Collection\" + "DirectoryListing_"+(Get-Date -f yyyy-MM-dd_HH-mm-ss) + ".csv")
+
+List folders only to a csv with atrribute data
+
+    Get-ChildItem -Force -Recurse -Directory | Select-Object  Fullname, LastAccessTime, LastWriteTime, CreationTime, Mode, Length, @{N="Owner";E={ (Get-Acl).Owner }}, @{N="ACL";E={ (Get-Acl).Access | ConvertTo-Csv }} | Export-Csv ("C:\Collection\" + "DirectoryListing_D-only"+(Get-Date -f yyyy-MM-dd_HH-mm-ss) + ".csv")
+
+Get a count of all members of an AD group recursive
+
+    (Get-ADGroupMember -Identity 'Users' -Recursive).count

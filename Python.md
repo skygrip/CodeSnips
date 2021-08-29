@@ -42,7 +42,8 @@ Loop over a panda with lambdas and create a copy
 
     df = df.assign(B=lambda x: 100, C=lambda x: func(x))
     
-
-
-
-
+Filter out rows with pandas and str
+    
+    data.Name.str.contains('testing', na=False)
+    data.Name.str.isin(['Fred','George'], na=False)
+    data.Name.str.match(r('^G.*))
