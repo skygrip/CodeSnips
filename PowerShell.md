@@ -66,3 +66,9 @@ List folders only to a csv with atrribute data
 Get a count of all members of an AD group recursive
 
     (Get-ADGroupMember -Identity 'Users' -Recursive).count
+
+Open the Exchange Server On-Prem snapin from a powershell script and get version ect...
+
+    Add-PSSnapin Microsoft.Exchange.Management.PowerShell.SnapIn
+    Get-ExchangeServer | Format-List Name,Edition,AdminDisplayVersion,MitigationsApplied,MitigationsBlocked
+    
